@@ -7,9 +7,4 @@
 
 import os.log
 
-enum Constants {
-  /// Property key used for screen shield functionality
-  static let propertyKey = "disableUpdateMask"
-}
-
 let logger = Logger(subsystem: "com.karrot.screenShieldKit", category: "ScreenShield")
