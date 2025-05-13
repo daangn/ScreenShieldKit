@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+    paths:
+      - "Package.swift"
+      - "Package.resolved"
+      - "Sources/**"
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  build_and_test:
+    runs-on: macos-14
+    env:
+      SCHEME: ScreenShieldKit
+    strategy:
+      matrix:
+        env:
+          - sdk: iphonesimulator
+            destination: platform=iOS Simulator,name=iPhone 15,OS=17.2
+          - sdk: macosx
+            destination: arch=x86_64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Xcode Version
+        run: sudo xcode-select --switch /Applications/Xcode_15.2.app
+        shell: bash
+
+      - name: Run `build-for-testing`
+        run: |
+          set -o pipefail && xcodebuild build-for-testing \
+            -scheme "$SCHEME" \
+            -sdk "$SDK" \
+            -destination "$DESTINATION" \
+            -configuration Debug \
+            | xcbeautify --renderer github-actions
+
+      - name: Run `test-without-building`
+        run: |
+          set -o pipefail && xcodebuild test-without-building \
+            -scheme "$SCHEME" \
+            -sdk "$SDK" \
+            -destination "$DESTINATION" \
+            -configuration Debug \
+            | xcbeautify --renderer github-actions
