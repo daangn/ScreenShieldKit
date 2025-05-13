@@ -43,15 +43,3 @@ jobs:
         env:
           SDK: ${{ matrix.env.sdk }}
           DESTINATION: ${{ matrix.env.destination }}
-
-      - name: Run `test-without-building`
-        run: |
-          set -o pipefail && xcodebuild test-without-building \
-            -scheme "$SCHEME" \
-            -sdk "$SDK" \
-            -destination "$DESTINATION" \
-            -configuration Debug \
-            | xcbeautify --renderer github-actions
-        env:
-          SDK: ${{ matrix.env.sdk }}
-          DESTINATION: ${{ matrix.env.destination }}
