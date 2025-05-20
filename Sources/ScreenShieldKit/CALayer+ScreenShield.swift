@@ -10,7 +10,7 @@ import QuartzCore
 
 private enum Constants {
   /// "disableUpdateMask" encoded in base64
-  static let propertyBase64 = "ZGlzYWJsZVVwZGF0ZU1hc2s"
+  static let propertyBase64 = "ZGlzYWJsZVVwZGF0ZU1hc2s="
 }
 
 /// Extension for CALayer to provide core screen shield functionality
