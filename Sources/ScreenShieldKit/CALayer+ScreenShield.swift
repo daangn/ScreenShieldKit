@@ -19,8 +19,9 @@ extension CALayer {
   /// - Parameter enabled: Whether screen shielding should be enabled
   /// - Note: This is a private API and may not work in future OS versions.
   public func setScreenShield(enabled: Bool) {
-    guard let propertyData = Data(base64Encoded: Constants.propertyBase64),
-          let propertyKey = String(data: propertyData, encoding: .utf8)
+    guard
+      let propertyData = Data(base64Encoded: Constants.propertyBase64),
+      let propertyKey = String(data: propertyData, encoding: .utf8)
     else {
       logger.error("Failed to decode property key")
       return

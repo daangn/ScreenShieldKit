@@ -10,11 +10,7 @@ import UIKit
 import ScreenShieldKit
 
 final class ViewController: UIViewController {
-
-  private let screenShieldSwitch: UISwitch = {
-    let view = UISwitch()
-    return view
-  }()
+  private let screenShieldSwitch = UISwitch()
 
   private let redView: UIView = {
     let view = UIView()
@@ -45,9 +41,8 @@ final class ViewController: UIViewController {
       redView.topAnchor.constraint(equalTo: screenShieldSwitch.bottomAnchor, constant: 20),
       redView.widthAnchor.constraint(equalToConstant: 200),
       redView.heightAnchor.constraint(equalToConstant: 200),
-      redView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+      redView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
     ])
-
   }
 
   private func addTargets() {
