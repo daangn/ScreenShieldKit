@@ -2,7 +2,7 @@
 //  NSView+ScreenShield.swift
 //  ScreenShieldKit
 //
-//  Created by Ray on 5/12/25.
+//  Created by Kanghoon Oh on 5/12/25.
 //
 
 #if os(macOS)
