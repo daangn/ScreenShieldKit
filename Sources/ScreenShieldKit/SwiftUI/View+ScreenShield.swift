@@ -39,9 +39,8 @@ extension View {
   ///   and does not introduce a hosting boundary.
   /// - On earlier releases (down to iOS 16 / macOS 13 / tvOS 16 / visionOS 1) it bridges the content
   ///   through a hosting controller and applies the Core Animation capture flag to its backing layer.
-  ///   Because this path re-hosts the content, some ancestor `@Environment` values are not propagated
-  ///   automatically; the most common ones (color scheme, layout direction, Dynamic Type size) are
-  ///   forwarded for you.
+  ///   SwiftUI keeps propagating the ancestor environment across this boundary, so `@Environment`
+  ///   values and `@EnvironmentObject` dependencies still reach the shielded content.
   ///
   /// - Parameter isProtected: A Boolean value that determines whether the content is hidden from
   ///   captures. Defaults to `true`.

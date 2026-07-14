@@ -22,17 +22,13 @@ import UIKit
 
 /// Bridges SwiftUI content to a `UIHostingController` whose layer carries the capture flag.
 ///
-/// A `UIHostingController` starts a fresh SwiftUI environment, so ancestor `@Environment` values are
-/// not propagated automatically. The most impactful values are forwarded here; forward additional
-/// values by reading them in a parent and passing them into the shielded content if your UI needs it.
+/// SwiftUI keeps propagating the ancestor environment across this representable-managed hosting
+/// controller, so `@Environment` values (including custom `EnvironmentKey`s) and `@EnvironmentObject`
+/// dependencies reach the hosted content without any manual forwarding.
 @available(iOS 16.0, tvOS 16.0, visionOS 1.0, *)
 struct ScreenShieldBridge<Content: View>: View {
   let isProtected: Bool
   let content: Content
-
-  @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.layoutDirection) private var layoutDirection
-  @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
   init(isProtected: Bool, content: Content) {
     self.isProtected = isProtected
@@ -42,9 +38,6 @@ struct ScreenShieldBridge<Content: View>: View {
   var body: some View {
     ScreenShieldHostingController(isProtected: isProtected) {
       content
-        .environment(\.colorScheme, colorScheme)
-        .environment(\.layoutDirection, layoutDirection)
-        .environment(\.dynamicTypeSize, dynamicTypeSize)
     }
   }
 }
@@ -91,16 +84,16 @@ import AppKit
 
 /// Bridges SwiftUI content to an `NSHostingController` whose backing layer carries the capture flag.
 ///
+/// SwiftUI keeps propagating the ancestor environment across this representable-managed hosting
+/// controller, so `@Environment` values and `@EnvironmentObject` dependencies reach the hosted
+/// content without any manual forwarding.
+///
 /// - Note: On macOS, layer-level capture hiding is best-effort and may not hide content from every
 ///   system capture path. Verify on the macOS versions you support.
 @available(macOS 13.0, *)
 struct ScreenShieldBridge<Content: View>: View {
   let isProtected: Bool
   let content: Content
-
-  @Environment(\.colorScheme) private var colorScheme
-  @Environment(\.layoutDirection) private var layoutDirection
-  @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
   init(isProtected: Bool, content: Content) {
     self.isProtected = isProtected
@@ -110,9 +103,6 @@ struct ScreenShieldBridge<Content: View>: View {
   var body: some View {
     ScreenShieldHostingController(isProtected: isProtected) {
       content
-        .environment(\.colorScheme, colorScheme)
-        .environment(\.layoutDirection, layoutDirection)
-        .environment(\.dynamicTypeSize, dynamicTypeSize)
     }
   }
 }

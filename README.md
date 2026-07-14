@@ -123,7 +123,7 @@ ScreenShieldKit selects a mechanism per platform and OS version:
 | SwiftUI (legacy) | iOS 16–17 / macOS 13–14 / tvOS 16–17 / visionOS 1 | Hosts the content in a hosting controller and applies the Core Animation capture flag to its backing layer. |
 | UIKit / AppKit / CALayer | iOS 14+ / macOS 11+ | Applies the Core Animation capture flag directly to the layer. |
 
-The SwiftUI native path is preferred where available because it composes cleanly with SwiftUI layout and state. The legacy path re-hosts the content, so some ancestor `@Environment` values are not propagated automatically; the most common ones (color scheme, layout direction, Dynamic Type size) are forwarded for you.
+The SwiftUI native path is preferred where available because it composes cleanly with SwiftUI layout and state. The legacy path re-hosts the content, but SwiftUI keeps propagating the ancestor environment across the hosting boundary, so `@Environment` values and `@EnvironmentObject` dependencies still reach the shielded content.
 
 ## Important notes
 
